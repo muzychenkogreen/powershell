@@ -29,8 +29,8 @@ if ($env:PROCESSOR_ARCHITECTURE -eq "amd64") {
     Remove-Item -Path "$env:TEMP\Salt-Minion.exe"
     
     # first run
-    Start-Sleep -Seconds 10
     Set-Content -Path "C:\ProgramData\Salt Project\Salt\conf\minion_id" -Value "$SALT_MINION_ID"
+    Start-Sleep -Seconds 5
     & "C:\Program Files\Salt Project\Salt\salt-call.bat" state.highstate
 
     }
