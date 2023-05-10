@@ -12,7 +12,7 @@ $SALT_MINION_x64_download_path = "https://repo.saltproject.io/windows/Salt-Minio
 $SALT_MINION_x86_download_path = "https://repo.saltproject.io/windows/Salt-Minion-$SALT_MINION_version-Py3-x86-Setup.exe"
 
 If ( $SALT_MINION_ID -eq $null ) {
-    $SALT_MINION_ID = $SALT_MINION_HOSTNAME
+    $SALT_MINION_ID = "$SALT_MINION_HOSTNAME"
     Write-Host "SALT_MINION_ID - $SALT_MINION_ID"
 } Else {
     Write-Host "SALT_MINION_ID - $SALT_MINION_ID"
