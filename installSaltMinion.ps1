@@ -7,7 +7,7 @@ $SALT_MINION_x86_download_path = "https://repo.saltproject.io/windows/Salt-Minio
 
 param (
    [string]$SALT_MASTER_SERVER = "salt",
-   [string]$SALT_AGENT_ENVIRONMENT = "base"
+   [string]$SALT_AGENT_ENVIRONMENT = "base",
    [string]$SALT_MINION_ID = "$SALT_MINION_HOSTNAME"
 )
 
