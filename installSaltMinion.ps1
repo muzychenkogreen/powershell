@@ -11,14 +11,6 @@ $SALT_MINION_version = '3005.1-5'
 $SALT_MINION_x64_download_path = "https://repo.saltproject.io/windows/Salt-Minion-$SALT_MINION_version-Py3-AMD64-Setup.exe"
 $SALT_MINION_x86_download_path = "https://repo.saltproject.io/windows/Salt-Minion-$SALT_MINION_version-Py3-x86-Setup.exe"
 
-If ( $SALT_MINION_ID -eq $null ) {
-    Set-Variable -Name "SALT-MINION_ID" -Value "$SALT_MINION_HOSTNAME"
-    Write-Host "SALT_MINION_ID - $SALT-MINION_ID"
-} Else {
-    Set-Variable -Name "SALT-MINION_ID" -Value "$SALT_MINION_ID"
-    Write-Host "SALT_MINION_ID - $SALT-MINION_ID"
-}
-
 If ($env:PROCESSOR_ARCHITECTURE -eq "amd64") {
     write-host "64-bit Operating System"
     
@@ -35,9 +27,14 @@ If ($env:PROCESSOR_ARCHITECTURE -eq "amd64") {
     $WebClient = New-Object System.Net.WebClient
     $WebClient.DownloadFile("$SALT_MINION_x64_download_path","$env:TEMP\Salt-Minion.exe")
 
-    # install salt-minion
-    Start-Process "$env:TEMP\Salt-Minion.exe" -Wait -ArgumentList "/S /master=$SALT_MASTER_SERVER /start-minion-delayed /minion-name=$SALT-MINION_ID"
-    Remove-Item -Path "$env:TEMP\Salt-Minion.exe"
+   # install salt-minion
+   If ( $SALT_MINION_ID -eq $null ) {
+       Start-Process "$env:TEMP\Salt-Minion.exe" -Wait -ArgumentList "/S /master=$SALT_MASTER_SERVER /start-minion-delayed"
+   } Else {
+       Start-Process "$env:TEMP\Salt-Minion.exe" -Wait -ArgumentList "/S /master=$SALT_MASTER_SERVER /start-minion-delayed /minion-name=$SALT_MINION_ID"
+   }
+   
+   Remove-Item -Path "$env:TEMP\Salt-Minion.exe"
     
     # first run salt-call
     Set-Content -Path "C:\ProgramData\Salt Project\Salt\conf\minion_id" -Value "$SALT_MINION_ID"
