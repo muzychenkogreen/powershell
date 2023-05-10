@@ -45,6 +45,6 @@ If ($env:PROCESSOR_ARCHITECTURE -eq "amd64") {
 
 } Else {
 
-  Write-Host "Operating System Is Not 64-bit"
+  Write-Host "operating system is not 64-bit"
 
 }
