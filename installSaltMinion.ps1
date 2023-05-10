@@ -1,4 +1,3 @@
-
 param (
    [string]$SALT_MASTER_SERVER = "salt",
    [string]$SALT_AGENT_ENVIRONMENT = "base",
