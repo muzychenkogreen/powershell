@@ -1,14 +1,15 @@
-param (
-   [string]$SALT_MASTER_SERVER = "salt",
-   [string]$SALT_AGENT_ENVIRONMENT = "base"
-)
-
 $WORKSTATION_FQDN = (Get-WmiObject win32_computersystem).DNSHostName+"."+(Get-WmiObject win32_computersystem).Domain
-$SALT_MINION_ID = $WORKSTATION_FQDN.ToLower()
+$SALT_MINION_HOSTNAME = $WORKSTATION_FQDN.ToLower()
 
 $SALT_MINION_version = '3005.1-5'
 $SALT_MINION_x64_download_path = "https://repo.saltproject.io/windows/Salt-Minion-$SALT_MINION_version-Py3-AMD64-Setup.exe"
 $SALT_MINION_x86_download_path = "https://repo.saltproject.io/windows/Salt-Minion-$SALT_MINION_version-Py3-x86-Setup.exe"
+
+param (
+   [string]$SALT_MASTER_SERVER = "salt",
+   [string]$SALT_AGENT_ENVIRONMENT = "base"
+   [string]$SALT_MINION_ID = "$SALT_MINION_HOSTNAME"
+)
 
 if ($env:PROCESSOR_ARCHITECTURE -eq "amd64") {
     write-host "64-bit Operating System"
