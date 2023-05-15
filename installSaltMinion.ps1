@@ -28,9 +28,9 @@ If ($env:PROCESSOR_ARCHITECTURE -eq "amd64") {
 
    Write-Host "trying to install salt-minion"
    If ( $SALT_MINION_ID -eq $null ) {
-       Start-Process "$env:TEMP\Salt-Minion.exe" -Wait -ArgumentList "/S /master=$SALT_MASTER_SERVER /start-minion-delayed"
+       Start-Process "$env:TEMP\Salt-Minion.exe" -Wait -ArgumentList "/S /master=$SALT_MASTER_SERVER"
    } Else {
-       Start-Process "$env:TEMP\Salt-Minion.exe" -Wait -ArgumentList "/S /master=$SALT_MASTER_SERVER /start-minion-delayed /minion-name=$SALT_MINION_ID"
+       Start-Process "$env:TEMP\Salt-Minion.exe" -Wait -ArgumentList "/S /master=$SALT_MASTER_SERVER /minion-name=$SALT_MINION_ID"
    }
    Set-Content -Path "C:\ProgramData\Salt Project\Salt\conf\minion_id" -Value "$SALT_MINION_ID"
    
